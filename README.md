@@ -29,13 +29,15 @@ mvn test
 
 这部分会持续累积，只保留高价值、容易在上机中造成 compile error、runtime error 或隐蔽逻辑错误的内容。
 
-## 1. 数组创建：`new T[]` 不能两边都空
+## 1. 数组创建：具体类型必须指定长度或初始化器
 
 ```java
 A[] x = new A[5];          // ✅ 指定长度
 A[] y = new A[]{a1, a2};   // ✅ 指定元素
 A[] z = new A[];           // ❌ compile error
 ```
+
+注意：如果 `T` 是泛型类型参数，`new T[length]` 也不能编译；上面的 `A` 指具体类名。
 
 复制数组：
 
@@ -125,3 +127,27 @@ compile production code
 ## 训练节奏
 
 前 14 天高密度循环复习核心语法与 OO 关系；之后继续每天更新，把新的 COMP7710 课程内容、近期错题和高风险点加入训练。
+
+## 环境与每日使用
+
+需要 JDK 17 或更高版本，以及 Maven 3.9+；IDE 中把根目录 pom.xml 作为 Maven 项目打开。
+首次下载依赖需要联网。项目使用 Java 17 语言级别和 JUnit 5。
+
+- [首日练习：2026-10-07](daily/2026-10-07/README.md)
+- [两周计划与反馈入口](CURRICULUM.md)
+
+每天先保存本地作答，再拉取新增练习：
+```bash
+git status
+# 有作答改动时先在本地 commit，或自行妥善保存
+git pull --ff-only
+mvn "-Dtest=Practice20261007Test" test
+```
+
+未完成的 starter 会真实报错，这是练习的初始状态；不是依赖安装失败。
+`mvn test` 运行全部日期，适合全量复习；平时使用日期测试名，避免旧题干扰。
+只检查项目能否编译（包括测试）可运行 `mvn test-compile`。
+若 pull 提示分支分叉，先保留本地作答再合并，不要使用 reset --hard。
+
+测试文件使用 `PracticeYYYYMMDDTest.java`：Java 类名不能以日期数字开头，也不能带连字符。
+每日生成遵循 CURRICULUM.md；定时任务的启用情况以应用里的任务设置为准。
