@@ -9,12 +9,22 @@ public class Department {
         Objects.requireNonNull(employees, "employees");
         for (Employee employee : employees) Objects.requireNonNull(employee, "employee");
         // TODO Q4: isolate both the array and its mutable elements.
-        this.employees = employees.clone();
+        this.employees = deepCopy(employees);
     }
 
     public Employee[] getEmployees() {
         // TODO Q4: callers must not be able to mutate our state.
-        return employees.clone();
+        Objects.requireNonNull(employees, "employees can not be null");
+        return deepCopy(employees);
+    }
+
+    private static Employee[] deepCopy(Employee[] source) {
+        Employee[] copy = new Employee[source.length];
+        for (int i = 0; i < source.length; i++) {
+            Employee employee = source[i];
+            copy[i] = new Employee(employee.getName(), employee.getSalary());
+        }
+        return copy;
     }
 
     public long totalSalary() {

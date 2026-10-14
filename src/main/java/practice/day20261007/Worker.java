@@ -14,6 +14,10 @@ public abstract class Worker implements Payable, Comparable<Worker> {
     @Override
     public int compareTo(Worker other) {
         // TODO Q5: pay ascending, then name ascending; avoid overflow.
-        return (int) (pay() - other.pay());
+        int payorder = Long.compare(this.pay(), other.pay());
+        if(payorder != 0) {
+            return payorder;
+        }
+        return name.compareTo(other.name); 
     }
 }

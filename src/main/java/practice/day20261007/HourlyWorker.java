@@ -14,6 +14,6 @@ public class HourlyWorker extends Worker {
     @Override
     public long pay() {
         // TODO Q5: check the type used during multiplication.
-        return hours * rate;
+        return (long)hours * rate;
     }
 }
